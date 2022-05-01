@@ -14,7 +14,7 @@ public_file=/www/server/panel/install/public.sh
 publicFileMd5=$(md5sum ${public_file} 2>/dev/null|awk '{print $1}')
 md5check="918CC0E14AC92F9D51BFD5CE6A076C36"
 if [ "${publicFileMd5}" != "${md5check}"  ]; then
-	wget -O Tpublic.sh https://raw.githubusercontent.com/zhucaidan/btpanel-v7.7.0/main/install/public.sh -T 20;
+	wget -O Tpublic.sh https://raw.githubusercontent.com/122al/bt-7.7.0/main/install/public.sh -T 20;
 	publicFileMd5=$(md5sum Tpublic.sh 2>/dev/null|awk '{print $1}')
 	if [ "${publicFileMd5}" == "${md5check}"  ]; then
 		\cp -rpa Tpublic.sh $public_file
@@ -38,7 +38,7 @@ fi
 
 download_Url=$NODE_URL
 setup_path=/www
-version=$(curl -Ss --connect-timeout 5 -m 2 https://raw.githubusercontent.com/zhucaidan/btpanel-v7.7.0/main/api/panel/get_version)
+version=$(curl -Ss --connect-timeout 5 -m 2 https://raw.githubusercontent.com/122al/bt-7.7.0/main/api/panel/get_version)
 if [ "$version" = '' ];then
 	version='7.7.0'
 fi
@@ -46,7 +46,7 @@ armCheck=$(uname -m|grep arm)
 if [ "${armCheck}" ];then
 	version='7.7.0'
 fi
-wget -T 5 -O /tmp/panel.zip https://raw.githubusercontent.com/zhucaidan/btpanel-v7.7.0/main/install/src/LinuxPanel-7.7.0.zip
+wget -T 5 -O /tmp/panel.zip https://raw.githubusercontent.com/122al/bt-7.7.0/main/install/src/LinuxPanel-7.7.0.zip
 dsize=$(du -b /tmp/panel.zip|awk '{print $1}')
 if [ $dsize -lt 10240 ];then
 	echo "获取更新包失败，请稍后更新或联系宝塔运维"
@@ -58,7 +58,7 @@ cd $setup_path/server/panel/
 check_bt=`cat /etc/init.d/bt`
 if [ "${check_bt}" = "" ];then
 	rm -f /etc/init.d/bt
-	wget -O /etc/init.d/bt https://raw.githubusercontent.com/zhucaidan/btpanel-v7.7.0/main/install/src/bt6.init -T 20
+	wget -O /etc/init.d/bt https://raw.githubusercontent.com/122al/bt-7.7.0/main/install/src/bt6.init -T 20
 	chmod +x /etc/init.d/bt
 fi
 rm -f /www/server/panel/*.pyc
